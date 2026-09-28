@@ -1,0 +1,8 @@
+a)
+@isTest
+private without sharing class DemoTest{
+    @isTest
+    private static void opportunityTestFunction(){
+        
+    }
+}

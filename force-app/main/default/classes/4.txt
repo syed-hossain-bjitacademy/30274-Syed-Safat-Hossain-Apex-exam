@@ -1,0 +1,12 @@
+a)
+record level access works on profile and field level access works on user.
+
+-----------------------------------------------------------
+b)
+(public|private|global) (with sharing | without sharing) class DemoClass{
+
+}
+
+------------------------------------------------------------
+c)
+we have to use "with sharing mode" in out query to enforce CRUD and FLS.

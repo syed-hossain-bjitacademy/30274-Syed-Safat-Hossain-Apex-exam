@@ -1,0 +1,13 @@
+a)
+as the current code will log 'Error' for all kind of error, we wount be able to which kind of error occured. thats why we wont be able to display the correct message/response to the user.
+
+---------------------------------------------------------
+b)
+List<Lead> res = new List<Lead>();
+
+try {
+    Database.insert(leadsToInsert, false);
+} catch (Exception e) {
+    System.debug('Error');
+    res.add(res);
+}

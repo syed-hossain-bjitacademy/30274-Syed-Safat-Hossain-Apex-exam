@@ -1,0 +1,8 @@
+a)
+
+if(isBlank(Opportunity.Amount) OR (Opportunity.Amount<=0)){
+    Opportunity.StageName != 'Closed Won';
+}
+
+-----------------------------------------------------------
+b)

@@ -1,0 +1,20 @@
+a)
+public class DemoClass{
+    public static List<Account> main(AccountId Id){
+        List<Account> acc = [SELECT Id, Name, (SELECT Id, Name, Email, Pgone), (SELECT Id, Name, StageName, Amount, CloseDate)
+        FROM Account
+        WHERE AccountId = :Id
+        WITH USER MODE];
+
+        return acc;
+    }
+}
+
+---------------------------------------------------------------
+b)
+FIND {word} IN ALL FIELDS (Account, Contact)
+
+in this situation, sosl will be the appropriate approach way to search.
+
+---------------------------------------------------------------
+

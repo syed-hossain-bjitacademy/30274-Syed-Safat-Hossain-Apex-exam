@@ -1,0 +1,27 @@
+b)
+updating a single record or performing a single DML is not recomanded.
+bulk transaction should be used with List collection. 
+
+-----------------------------------------------------------------------------------------------
+C)
+trigger OpportunityTrigger on Opportunity (after insert, after update) {
+    for (Opportunity opp : Trigger.new) {
+        Account acc = [SELECT Id, Strategic__c, (SELECT Id, Amount FROM Opportunities) FROM Account WHERE Id = :opp.AccountId];
+        List<Opportunity> opportunities = [SELECT Id, Amount FROM Opportunity WHERE AccountId = :opp.AccountId];
+        
+        Decimal totalAmount = 0;
+        for (Account item : acc) {
+            if (item.Opportunity.Amount != null) {
+                totalAmount += item.Opportunity.Amount;
+            }
+        }
+        if (totalAmount >= 5000000) {
+            acc.Strategic__c = true;
+            update acc;
+        }
+    }
+}
+
+---------------------------------------------------------------------------------------------
+d)
+I will use external function along with trigger. all the business logic will be in that function. trigger will call the function when appropriate. so business logic will be kept outside of trigger.

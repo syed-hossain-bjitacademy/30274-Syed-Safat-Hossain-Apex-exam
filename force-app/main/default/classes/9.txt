@@ -1,0 +1,46 @@
+
+public static void updateContacts(List<Account> accounts) {
+    for (Account acc : accounts) {
+        List<Contact> contacts = [SELECT Id, AccountId, Description FROM Contact WHERE AccountId = :acc.Id];
+        
+        for (Contact con : contacts) {
+            if (acc.Industry == 'Technology') {
+                con.Description = 'Technology Customer';
+                update con;
+            }
+        }
+    }
+}
+
+--------------------------------------------------------
+a) 
+As we are updating con inside a nested for loop, this is not a scalable solution. we should use bulk transaction here.
+
+--------------------------------------------------------
+b)
+public static void updateContacts(List<Account> accounts){
+    List<Account> accList = [SELECT Id, (SELECT Id, AccountId, Description FROM Contacts) FROM Accounts WHERE Id = AccountId];
+
+    for(Account a: accounts){
+        if(acc.Industry == 'Technology'){
+            a.Contact.Description = 'Technology Customer';
+        }
+    }
+    
+    update accList;
+}
+
+-----------------------------------------------------------------------------------
+c)
+public static void updateContacts(List<Account> accounts){
+    List<Account> accList = new List<Account>();
+
+    for(Account a: accounts){
+        if(acc.Industry == 'Technology'){
+            a.Contact.Description = 'Technology Customer';
+            accList.add(a);
+        }
+    }
+    
+    update accList;
+}
